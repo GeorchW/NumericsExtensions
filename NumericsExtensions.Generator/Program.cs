@@ -20,14 +20,14 @@ namespace NumericsExtensions.Generator
             };
             for (int i = 2; i <= 4; i++)
             {
-                generators.Add(new VectorGenerator("Vector", "float", i,
-                    new[] { "-" },
-                    new[] { "+", "-", "*", "/", "%" },
-                    new[] { ("Zero", "0"), ("One", "1") },
-                    "1", "0",
-                    new[] { ("Int" + i, "int", false) },
-                    swizzles[i - 2],
-                    i > 2));
+                //generators.Add(new VectorGenerator("Vector", "float", i,
+                //    new[] { "-" },
+                //    new[] { "+", "-", "*", "/", "%" },
+                //    new[] { ("Zero", "0"), ("One", "1") },
+                //    "1", "0",
+                //    new[] { ("Int" + i, "int", false) },
+                //    swizzles[i - 2],
+                //    i > 2));
                 generators.Add(new VectorGenerator("Int", "int", i,
                     new[] { "-", "~" },
                     new[] { "+", "-", "*", "/", "%" },
