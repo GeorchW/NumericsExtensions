@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SimpleNumerics.Generator
+namespace NumericsExtensions.Generator
 {
     public class VectorGenerator
     {
@@ -68,7 +68,7 @@ namespace SimpleNumerics.Generator
             codeBuilder.WriteLine("using System;");
             codeBuilder.WriteLine("using System.Diagnostics;");
             codeBuilder.WriteLine("using System.ComponentModel;");
-            using (codeBuilder.Block("namespace SimpleNumerics"))
+            using (codeBuilder.Block("namespace NumericsExtensions"))
             {
                 if(postfix == null)
                 {

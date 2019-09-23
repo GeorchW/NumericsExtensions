@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace SimpleNumerics.Generator
+namespace NumericsExtensions.Generator
 {
     class CodeBuilder
     {

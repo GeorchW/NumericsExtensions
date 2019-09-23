@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace SimpleNumerics.Generator
+namespace NumericsExtensions.Generator
 {
     static class Program
     {

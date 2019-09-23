@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SimpleNumerics
+namespace NumericsExtensions
 {
     partial struct Vector4
     {
