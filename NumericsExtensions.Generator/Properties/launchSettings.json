@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Generate classes": {
+      "commandName": "Project",
+      "workingDirectory": "../NumericsExtensions/"
+    }
+  }
+}
