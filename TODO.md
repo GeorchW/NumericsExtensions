@@ -1,0 +1,31 @@
+- [x] Components
+- [x] Swizzles
+- [x] Component-wise operators
+- [x] Component-wise binary operators with scalar
+- [x] Explicit down-casts
+- [x] Implicit up-casts
+- [x] Zero/One/True/False properties
+- [x] UnitXYZ properties
+- [x] Meta-Generator
+- [x] Canonical constructor
+- [x] Further Constructors
+- [x] Dot - all Vector*
+- [x] Lerp - all Vector*
+- [x] Length - all Vector*
+- [x] Normalize - all Vector*
+- [x] Reflect
+- [x] Look at other System.Numerics methods for Vector2 and Vector4
+- [x] ==, !=
+- [x] Equals
+- [x] ToString `<X Y Z>`
+- [x] GetHashCode
+- [x] readonly
+- [x] Clamp
+- [x] Saturate
+- [x] Cross - Vector3 only
+- [ ] Transform (?) - may have to be special-cased
+- [ ] TransformNormal (?) - may have to be special-cased
+
+- [x] use `in` where possible
+- [ ] use `Vector128` and `Vector256` where possible
+- [ ] Are `out` parameters still required for performance reasons? => Write benchmark!
