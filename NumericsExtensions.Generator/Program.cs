@@ -33,7 +33,8 @@ namespace NumericsExtensions.Generator
                     new[] { "+", "-", "*", "/", "%" },
                     new[] { ("Zero", "0"), ("One", "1") },
                     "1", "0",
-                    new[] { ("Vector" + i, "float", true) },
+                    new[] { ($"Vector{i}", "float", true) },
+                    new[] { $"Vector{i}" },
                     swizzles[i - 2],
                     i > 2));
                 generators.Add(new VectorGenerator("Bool", "bool", i,
@@ -42,6 +43,7 @@ namespace NumericsExtensions.Generator
                     new[] { ("False", "false"), ("True", "true") },
                     "true", "false",
                     new (string, string, bool)[0],
+                    new string[0],
                     swizzles[i - 2],
                     false));
             }

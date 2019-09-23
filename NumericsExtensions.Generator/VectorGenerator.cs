@@ -19,6 +19,7 @@ namespace NumericsExtensions.Generator
         string positiveConstant;
         string negativeConstant;
         (string vectorType, string componentType, bool isImplicit)[] casts;
+        string[] foreignCasts;
         string[] swizzles;
         bool useIn;
 
@@ -37,13 +38,18 @@ namespace NumericsExtensions.Generator
             codeBuilder.WriteLine("/// " + summary);
             codeBuilder.WriteLine("/// </summary>");
         }
-        string VectorParam(string name) => useIn ? $"in {typeName} {name}" : $"{typeName} {name}";
+        string VectorParam(string name, string typeName = null)
+        {
+            typeName ??= this.typeName;
+            return useIn ? $"in {typeName} {name}" : $"{typeName} {name}";
+        }
 
         public VectorGenerator(string baseName, string componentType, int numComponents,
             string[] supportedUnaryOperators, string[] supportedBinaryOperators,
             (string propertyName, string componentConstant)[] unitProperties,
             string positiveConstant, string negativeConstant,
             (string vectorType, string componentType, bool isImplicit)[] casts,
+            string[] foreignCasts,
             string[] swizzles,
             bool useIn
             )
@@ -57,6 +63,7 @@ namespace NumericsExtensions.Generator
             this.positiveConstant = positiveConstant;
             this.negativeConstant = negativeConstant;
             this.casts = casts;
+            this.foreignCasts = foreignCasts;
             this.swizzles = swizzles;
             this.useIn = useIn;
             typeName = baseName + numComponents;
@@ -68,9 +75,12 @@ namespace NumericsExtensions.Generator
             codeBuilder.WriteLine("using System;");
             codeBuilder.WriteLine("using System.Diagnostics;");
             codeBuilder.WriteLine("using System.ComponentModel;");
+            codeBuilder.WriteLine("using System.Numerics;");
+            codeBuilder.WriteLine("");
+
             using (codeBuilder.Block("namespace NumericsExtensions"))
             {
-                if(postfix == null)
+                if (postfix == null)
                 {
                     WriteSummary($"Represents a vector with {numComponents} components of type {See(componentType)}.");
                 }
@@ -262,6 +272,12 @@ namespace NumericsExtensions.Generator
                 WriteSummary($"Returns a {See(cast.vectorType)} where all components are casted to {cast.componentType}.");
                 codeBuilder.WriteLine($"public static {(cast.isImplicit ? "implicit" : "explicit")} operator {cast.vectorType}({VectorParam("vector")})");
                 codeBuilder.WriteLine($" => {New(X => $"({cast.componentType})vector.{X}", cast.vectorType)};");
+            }
+            foreach (var cast in foreignCasts)
+            {
+                WriteSummary($"Returns a {See(typeName)} where all components are casted to {componentType}.");
+                codeBuilder.WriteLine($"public static explicit operator {typeName}({VectorParam("vector", cast)})");
+                codeBuilder.WriteLine($" => {New(X => $"({componentType})vector.{X}")};");
             }
         }
 
