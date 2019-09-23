@@ -279,6 +279,16 @@ namespace NumericsExtensions.Generator
                 codeBuilder.WriteLine($"public static explicit operator {typeName}({VectorParam("vector", cast)})");
                 codeBuilder.WriteLine($" => {New(X => $"({componentType})vector.{X}")};");
             }
+            if(componentType == "bool")
+            {
+                foreach (var vectorBaseType in new[] { "Int", "Vector" })
+                {
+                    string vectorType = $"{vectorBaseType}{numComponents}";
+                    WriteSummary($"Returns a {See(vectorType)} where each component is 1 if the respective component is true in this {See(typeName)}, and 0 otherwise.");
+                    codeBuilder.WriteLine($"public readonly {vectorType} As{vectorBaseType}()");
+                    codeBuilder.WriteLine($" => {New(X => $"{X} ? 1 : 0", vectorType)};");
+                }
+            }
         }
 
         private void GenerateLerp()
