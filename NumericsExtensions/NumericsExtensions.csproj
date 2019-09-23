@@ -3,6 +3,24 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <DocumentationFile>$(OutputPath)\SimpleNumerics.xml</DocumentationFile>
+    <Version>0.1.0</Version>
+    <Authors>Contributors</Authors>
+    <Company>None</Company>
+    <Product />
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/GeorchW/NumericsExtensions</RepositoryUrl>
+    <Description>Adds Int2, Int3, Int4, Bool2, Bool3, Bool4 and some swizzles to support the vector types from System.Numerics</Description>
   </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration)==RELEASE">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
