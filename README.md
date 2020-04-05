@@ -35,3 +35,14 @@ Also, all kinds of reflection tools that try to list all members are constantly 
 The support for the BCL types is likely much better. This improves reliability and performance. Additionally, the BCL types and many of their methods are recognized as Intrinsics by the runtime, further increasing performance.
 
 If you want to, you can uncomment the respective lines in `Program.cs` as a starting point to generate Vector types as well.
+
+Changelog
+---------
+
+### 0.2.0
+
+Add implicitely converting operators (`Int2 * float -> Vector2` etc.)
+
+### 0.1.0
+
+Initial version
