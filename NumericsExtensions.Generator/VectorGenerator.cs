@@ -15,6 +15,7 @@ namespace NumericsExtensions.Generator
 
         string[] supportedUnaryOperators;
         string[] supportedBinaryOperators;
+        private readonly (string componentName, string vectorName)[] binaryComponentUpcasts;
         (string propertyName, string componentConstant)[] unitProperties;
         string positiveConstant;
         string negativeConstant;
@@ -46,6 +47,7 @@ namespace NumericsExtensions.Generator
 
         public VectorGenerator(string baseName, string componentType, int numComponents,
             string[] supportedUnaryOperators, string[] supportedBinaryOperators,
+            (string componentName, string vectorName)[] binaryComponentUpcasts,
             (string propertyName, string componentConstant)[] unitProperties,
             string positiveConstant, string negativeConstant,
             (string vectorType, string componentType, bool isImplicit)[] casts,
@@ -59,6 +61,7 @@ namespace NumericsExtensions.Generator
             this.numComponents = numComponents;
             this.supportedUnaryOperators = supportedUnaryOperators;
             this.supportedBinaryOperators = supportedBinaryOperators;
+            this.binaryComponentUpcasts = binaryComponentUpcasts;
             this.unitProperties = unitProperties;
             this.positiveConstant = positiveConstant;
             this.negativeConstant = negativeConstant;
@@ -229,6 +232,17 @@ namespace NumericsExtensions.Generator
                 WriteSummary($"Applies the <code>{escapedOp}</code>-operator component-wise.");
                 codeBuilder.WriteLine($"public static {typeName} operator {op}({componentType} left, {VectorParam("right")})");
                 codeBuilder.WriteLine($" => {New(X => $"left {op} right.{X}")};");
+
+                foreach (var (upcastedComponent, upcastedVector) in binaryComponentUpcasts)
+                {
+                    WriteSummary($"Applies the <code>{escapedOp}</code>-operator component-wise.");
+                    codeBuilder.WriteLine($"public static {upcastedVector} operator {op}({VectorParam("left")}, {upcastedComponent} right)");
+                    codeBuilder.WriteLine($" => {New(X => $"left.{X} {op} right", upcastedVector)};");
+
+                    WriteSummary($"Applies the <code>{escapedOp}</code>-operator component-wise.");
+                    codeBuilder.WriteLine($"public static {upcastedVector} operator {op}({upcastedComponent} left, {VectorParam("right")})");
+                    codeBuilder.WriteLine($" => {New(X => $"left {op} right.{X}", upcastedVector)};");
+                }
             }
 
             foreach (var op in supportedUnaryOperators)
